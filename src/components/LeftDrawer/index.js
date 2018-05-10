@@ -2,13 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import { Drawer, List } from 'material-ui';
-import { mailFolderListItems } from './titleData';
+import { folderListItems } from './titleData';
 import { Dropbox } from 'mdi-material-ui';
 
 const styles = theme => ({
   toolbar: theme.mixins.toolbar,
   icon: {
-    color: 'blue',
+    color: '#0C7EF1',
+    fontSize: 34,
   },
   drawerPaper: {
     backgroundColor: 'rgb(247, 249, 250)',
@@ -25,10 +26,10 @@ const LeftDrawer = props => {
       }}
       anchor="left"
     >
-      <div className={classes.toolbar}>
+      <div className={classes.toolbar} style={{ padding: 15 }}>
         <Dropbox className={classes.icon} />
       </div>
-      <List>{mailFolderListItems}</List>
+      <List>{folderListItems}</List>
     </Drawer>
   );
 };

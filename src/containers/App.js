@@ -29,6 +29,7 @@ class App extends Component {
           <React.Fragment>
             <CssBaseline />
             <Switch>
+              <Route path="/" component={AsyncHome} />
               <Route path="/:id" component={AsyncHome} />
             </Switch>
           </React.Fragment>

@@ -14,8 +14,18 @@ const styles = theme => ({
   },
   icon: {
     color: 'black',
+    margin: 10,
   },
-  avatar: {},
+  avatar: {
+    fontSize: 14,
+    width: 34,
+    height: 34,
+    margin: 10,
+  },
+  magnify: {
+    fontSize: 18,
+    marginLeft: 8,
+  },
 });
 const RightBar = props => {
   const { classes } = props;
@@ -30,11 +40,12 @@ const RightBar = props => {
       className={classes.container}
     >
       <TextField
+        placeholder="Search"
         InputProps={{
           disableUnderline: true,
           startAdornment: (
             <InputAdornment position="start">
-              <Magnify />
+              <Magnify className={classes.magnify} />
             </InputAdornment>
           ),
         }}
