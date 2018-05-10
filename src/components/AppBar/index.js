@@ -1,16 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
-import { Toolbar, AppBar, Typography, Grid } from 'material-ui';
+import { AppBar, Typography, Grid } from 'material-ui';
 
-import RightBar from './RightBar';
+import AppRightBar from './AppRightBar';
 
 const styles = theme => ({
   appBar: {
     backgroundColor: 'transparent',
-    width: `calc(100% - 200px)`,
-    marginLeft: '200px',
+    width: `calc(100% - 250px)`,
+    marginLeft: '270px',
     boxShadow: 'none',
+    paddingRight: '5%',
+    [theme.breakpoints.down('750')]: {
+      width: `100%`,
+      margin: '0 5% 0 5%',
+      paddingRight: '5%',
+    },
   },
 });
 
@@ -23,7 +29,7 @@ const AppBarCustom = props => {
           <Typography noWrap>BLA BLA</Typography>
         </Grid>
         <Grid item xs>
-          <RightBar />
+          <AppRightBar />
         </Grid>
       </Grid>
     </AppBar>

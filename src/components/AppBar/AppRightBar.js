@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
-import { Grid, Button, Input, TextField, InputAdornment, Avatar } from 'material-ui';
+import { Grid, TextField, InputAdornment, Avatar } from 'material-ui';
 import { Magnify, BellOutline } from 'mdi-material-ui';
 
 const styles = theme => ({
@@ -27,7 +27,7 @@ const styles = theme => ({
     marginLeft: 8,
   },
 });
-const RightBar = props => {
+const AppRightBar = props => {
   const { classes } = props;
 
   return (
@@ -56,8 +56,8 @@ const RightBar = props => {
     </Grid>
   );
 };
-RightBar.propTypes = {
+AppRightBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(RightBar);
+export default withStyles(styles)(AppRightBar);
