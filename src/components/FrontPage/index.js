@@ -45,6 +45,17 @@ const RenderFolderList = props => {
     </Grid>
   );
 };
+
+const RenderGridButton = props => {
+  const { classes } = props;
+  return (
+    <Grid item md className={classes.buttonContainer}>
+      <Button variant="raised" color="secondary" className={classes.button} fullWidth>
+        Upload files
+      </Button>
+    </Grid>
+  );
+};
 class FrontPage extends Component {
   render() {
     const { classes, windowWidth } = this.props;
@@ -64,13 +75,7 @@ class FrontPage extends Component {
           <Grid item xs={12} md={windowWidth >= 1050 ? 9 : 12}>
             {RenderFolderList()}
           </Grid>
-          {windowWidth > 1050 ? (
-            <Grid item md className={classes.buttonContainer}>
-              <Button variant="raised" color="secondary" className={classes.button} fullWidth>
-                Upload files
-              </Button>
-            </Grid>
-          ) : null}
+          {windowWidth > 1050 ? RenderGridButton(this.props) : null}
         </Grid>
       </Paper>
     );
