@@ -16,7 +16,7 @@ const styles = theme => ({
     },
   },
 });
-const FolderListItems = props => {
+const MenuItems = props => {
   const {
     classes,
     superProps: { history },
@@ -74,8 +74,8 @@ const FolderListItems = props => {
   );
 };
 
-FolderListItems.propTypes = {
+MenuItems.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(FolderListItems);
+export default withStyles(styles)(MenuItems);

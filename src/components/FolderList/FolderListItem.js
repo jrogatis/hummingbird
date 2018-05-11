@@ -6,7 +6,15 @@ import { Divider, Grid } from 'material-ui';
 import Avatar from 'material-ui/Avatar';
 import FolderIcon from '@material-ui/icons/Folder';
 import ReactPlaceholder from 'react-placeholder';
+import {
+  TextBlock,
+  MediaBlock,
+  TextRow,
+  RectShape,
+  RoundShape,
+} from 'react-placeholder/lib/placeholders';
 import 'react-placeholder/lib/reactPlaceholder.css';
+
 const styles = theme => ({
   root: {},
   avatar: {
@@ -16,6 +24,10 @@ const styles = theme => ({
   },
   icon: {
     fontSize: 36,
+  },
+  placeHolderContainer: {
+    margin: '12px, 12px, 25px, 15px',
+    padding: 15,
   },
 });
 
@@ -49,6 +61,23 @@ class FolderListItem extends Component {
     clearTimeout(this.timer);
   }
 
+  renderPlaceHolder() {
+    const { classes } = this.props;
+    return (
+      <Grid
+        container
+        className={classes.placeHolderContainer}
+        direction="row"
+        wrap="nowrap"
+        justify="flex-end"
+        alignItems="center"
+      >
+        <RoundShape color={'lightGrey'} style={{ width: 30, height: 30, margin: 12 }} />
+        <TextBlock rows={2} color={'lightGrey'} />
+      </Grid>
+    );
+  }
+
   render() {
     const { classes, item } = this.props;
     return (
@@ -61,7 +90,12 @@ class FolderListItem extends Component {
         className={classes.root}
       >
         <Grid item xs={12}>
-          <ReactPlaceholder showLoadingAnimation type="media" rows={2} ready={this.state.ready}>
+          <ReactPlaceholder
+            customPlaceholder={this.renderPlaceHolder()}
+            showLoadingAnimation
+            rows={2}
+            ready={this.state.ready}
+          >
             <ListItem>
               <Avatar className={classes.avatar}>
                 <FolderIcon className={classes.icon} />

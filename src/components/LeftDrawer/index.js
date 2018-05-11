@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import { Drawer, MenuList } from 'material-ui';
-import ListItems from './ListItems';
+import MenuItems from './MenuItems';
 import { Dropbox } from 'mdi-material-ui';
 import windowSize from 'react-window-size';
 
@@ -36,7 +36,7 @@ const LeftDrawer = props => {
         <Dropbox className={classes.icon} />
       </div>
       <MenuList role="menu">
-        <ListItems superProps={superProps} />
+        <MenuItems superProps={superProps} />
       </MenuList>
     </Drawer>
   );
