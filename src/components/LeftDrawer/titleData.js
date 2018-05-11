@@ -28,19 +28,19 @@ const FolderListItems = props => {
 
   return (
     <Grid container direction="column" justify="flex-start" alignItems="flex-start">
-      <div disableRipple className={classes.button} onClick={() => handleClick('/')}>
+      <div className={classes.button} onClick={() => handleClick('/')}>
         Home
       </div>
-      <div disableRipple className={classes.button} onClick={() => handleClick('/Files')}>
+      <div className={classes.button} onClick={() => handleClick('/Files')}>
         Files
       </div>
-      <div disableRipple className={classes.button} onClick={() => handleClick('/Paper')}>
+      <div className={classes.button} onClick={() => handleClick('/Paper')}>
         Paper
       </div>
-      <div disableRipple className={classes.button} onClick={() => handleClick('/Showcase')}>
+      <div className={classes.button} onClick={() => handleClick('/Showcase')}>
         Showcase
       </div>
-      <div disableRipple className={classes.button} onClick={() => handleClick('/Admin')}>
+      <div className={classes.button} onClick={() => handleClick('/Admin')}>
         Admin console
       </div>
     </Grid>
