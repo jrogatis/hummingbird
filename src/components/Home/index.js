@@ -23,10 +23,13 @@ const styles = theme => ({
   },
   buttonContainer: {
     minWidth: 200,
+    maxHeight: 32,
   },
   button: {
     textTransform: 'none',
-    width: 180,
+    width: 200,
+    maxHeight: 32,
+    backgroundColor: '#0070e0',
     label: {
       whiteSpace: 'nowrap',
     },

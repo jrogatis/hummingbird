@@ -9,7 +9,7 @@ import windowSize from 'react-window-size';
 const styles = theme => ({
   toolbar: theme.mixins.toolbar,
   icon: {
-    color: '#0C7EF1',
+    color: '#0070e0',
     fontSize: 34,
   },
   drawer: {},
