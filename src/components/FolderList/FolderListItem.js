@@ -61,7 +61,7 @@ class FolderListItem extends Component {
         className={classes.root}
       >
         <Grid item xs={12}>
-          <ReactPlaceholder type="media" rows={2} ready={this.state.ready}>
+          <ReactPlaceholder showLoadingAnimation type="media" rows={2} ready={this.state.ready}>
             <ListItem>
               <Avatar className={classes.avatar}>
                 <FolderIcon className={classes.icon} />
