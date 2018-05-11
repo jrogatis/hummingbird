@@ -18,6 +18,9 @@ const styles = theme => ({
       paddingRight: '5%',
     },
   },
+  title: {
+    fontSize: 20,
+  },
 });
 
 const AppBarCustom = props => {
@@ -26,7 +29,7 @@ const AppBarCustom = props => {
     <AppBar position="static" className={classes.appBar}>
       <Grid container direction="row" wrap="nowrap" jusitfy="center" alignItems="center">
         <Grid item xs>
-          <Typography noWrap>
+          <Typography noWrap className={classes.title}>
             {title.hasOwnProperty('subFolder') ? title.subFolder : 'Home'}
           </Typography>
         </Grid>

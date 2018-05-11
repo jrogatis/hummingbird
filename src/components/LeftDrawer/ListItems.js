@@ -10,7 +10,7 @@ const styles = theme => ({
     padding: 10,
     cursor: 'pointer',
     color: '#778594',
-    fontSize: 18,
+    fontSize: 16,
     '&:hover': {
       color: '#BADFF9',
     },
@@ -28,9 +28,9 @@ const FolderListItems = props => {
   const isCurPage = page => {
     const { params } = props.superProps.match;
     if (!params.hasOwnProperty('subFolder') && page === 'Home') {
-      return '#BADFF9';
+      return '#0070E0';
     }
-    return params.subFolder === page ? '#BADFF9' : '#778594';
+    return params.subFolder === page ? '#0070E0' : '#778594';
   };
 
   return (

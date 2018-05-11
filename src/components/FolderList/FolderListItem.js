@@ -5,7 +5,8 @@ import { ListItem, ListItemText } from 'material-ui/List';
 import { Divider, Grid } from 'material-ui';
 import Avatar from 'material-ui/Avatar';
 import FolderIcon from '@material-ui/icons/Folder';
-import FolderListItemShimmer from './FolderListItemShimmer';
+import ReactPlaceholder from 'react-placeholder';
+import 'react-placeholder/lib/reactPlaceholder.css';
 const styles = theme => ({
   root: {},
   avatar: {
@@ -21,23 +22,36 @@ const styles = theme => ({
 class FolderListItem extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      ready: false,
-    };
+    this.state = { ready: false };
+    this.timer = '';
   }
 
-  componentDidMount() {
-    setTimeout(() => {
-      this.setState({ ready: true });
-    }, 3000);
+  componentWillMount() {
+    this.timer = setTimeout(
+      function() {
+        this.setState({ ready: true });
+      }.bind(this),
+      3000,
+    );
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({ ready: false });
+    this.timer = setTimeout(
+      function() {
+        this.setState({ ready: true });
+      }.bind(this),
+      3000,
+    );
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timer);
   }
 
   render() {
     const { classes, item } = this.props;
-    const { ready } = this.state;
-    return !ready ? (
-      <FolderListItemShimmer />
-    ) : (
+    return (
       <Grid
         container
         direction="column"
@@ -47,12 +61,14 @@ class FolderListItem extends Component {
         className={classes.root}
       >
         <Grid item xs={12}>
-          <ListItem>
-            <Avatar className={classes.avatar}>
-              <FolderIcon className={classes.icon} />
-            </Avatar>
-            <ListItemText primary="Vacation" secondary="July 20, 2014" />
-          </ListItem>
+          <ReactPlaceholder type="media" rows={2} ready={this.state.ready}>
+            <ListItem>
+              <Avatar className={classes.avatar}>
+                <FolderIcon className={classes.icon} />
+              </Avatar>
+              <ListItemText primary="Vacation" secondary="July 20, 2014" />
+            </ListItem>
+          </ReactPlaceholder>
           <Divider />
         </Grid>
       </Grid>

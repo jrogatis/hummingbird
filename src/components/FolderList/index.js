@@ -23,7 +23,7 @@ class FolderList extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { curPage } = this.state;
-    if (curPage !== nextProps.page.subFolder) {
+    if (this.props.page.hasOwnProperty('subFolder') && curPage !== nextProps.page.subFolder) {
       this.setState({ curPage: nextProps.page.subFolder });
     }
   }
