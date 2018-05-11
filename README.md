@@ -5,7 +5,7 @@
 ```bash
 
 git clone https://github.com/jrogatis/hummingbird.git
-cd red_ventures
+cd hummingbird
 npm install
 
 ```
