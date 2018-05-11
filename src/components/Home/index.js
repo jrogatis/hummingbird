@@ -34,13 +34,14 @@ const styles = theme => ({
 });
 
 const RenderFolderList = props => {
+  const { params } = props;
   return (
     <Grid container direction="column" wrap="nowrap" alignItems="stretch" justify="center">
       <Grid item xs>
         <Typography>Starred</Typography>
       </Grid>
       <Grid item xs>
-        <FolderList />
+        <FolderList page={params} />
       </Grid>
     </Grid>
   );
@@ -58,11 +59,15 @@ const RenderGridButton = props => {
 };
 class FrontPage extends Component {
   render() {
-    const { classes, windowWidth } = this.props;
+    const {
+      classes,
+      windowWidth,
+      match: { params },
+    } = this.props;
     return (
       <Paper className={classes.root} elevation={0}>
-        <LeftDrawer />
-        <AppBarCustom />
+        <LeftDrawer superProps={this.props} />
+        <AppBarCustom title={params} />
         <Grid
           container
           direction="row"
@@ -73,7 +78,7 @@ class FrontPage extends Component {
           spacing={16}
         >
           <Grid item xs={12} md={windowWidth >= 1050 ? 9 : 12}>
-            {RenderFolderList()}
+            {RenderFolderList({ params })}
           </Grid>
           {windowWidth > 1050 ? RenderGridButton(this.props) : null}
         </Grid>

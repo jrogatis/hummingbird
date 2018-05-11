@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import { List, Grid } from 'material-ui';
 import FolderListItem from './FolderListItem';
+import _ from 'lodash';
 
 const styles = theme => ({
   root: {
@@ -14,10 +15,15 @@ const styles = theme => ({
 
 const FolderList = props => {
   const { classes } = props;
+  const randomItems = _.random(1, 5);
   return (
     <Grid container direction="column" className={classes.root}>
       <Grid item xs={12}>
-        <List>{[1, 2, 3].map(item => <FolderListItem item={item} key={`list-${item}`} />)}</List>
+        <List>
+          {[...Array(randomItems).keys()].map(item => (
+            <FolderListItem item={item} key={`list-${item}`} />
+          ))}
+        </List>
       </Grid>
     </Grid>
   );

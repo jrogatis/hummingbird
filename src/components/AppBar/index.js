@@ -21,12 +21,14 @@ const styles = theme => ({
 });
 
 const AppBarCustom = props => {
-  const { classes } = props;
+  const { classes, title } = props;
   return (
     <AppBar position="static" className={classes.appBar}>
       <Grid container direction="row" wrap="nowrap" jusitfy="center" alignItems="center">
         <Grid item xs>
-          <Typography noWrap>BLA BLA</Typography>
+          <Typography noWrap>
+            {title.hasOwnProperty('subFolder') ? title.subFolder : 'Home'}
+          </Typography>
         </Grid>
         <Grid item xs>
           <AppRightBar />

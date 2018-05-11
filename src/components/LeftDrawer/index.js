@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
-import { Drawer, List } from 'material-ui';
-import { folderListItems } from './titleData';
+import { Drawer, MenuList } from 'material-ui';
+import FolderListItems from './titleData';
 import { Dropbox } from 'mdi-material-ui';
 import windowSize from 'react-window-size';
 
@@ -21,7 +21,7 @@ const styles = theme => ({
 });
 
 const LeftDrawer = props => {
-  const { classes, windowWidth } = props;
+  const { classes, windowWidth, superProps } = props;
 
   return (
     <Drawer
@@ -35,7 +35,9 @@ const LeftDrawer = props => {
       <div className={classes.toolbar} style={{ padding: 15 }}>
         <Dropbox className={classes.icon} />
       </div>
-      <List>{folderListItems}</List>
+      <MenuList role="menu">
+        <FolderListItems superProps={superProps} />
+      </MenuList>
     </Drawer>
   );
 };

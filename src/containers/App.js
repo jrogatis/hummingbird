@@ -10,7 +10,7 @@ import asyncComponent from '../utils/AsyncComponent';
 import theme from '../theme';
 // import reducers from '../reducers';
 
-const AsyncHome = asyncComponent(() => import('../components/FrontPage'));
+const AsyncHome = asyncComponent(() => import('../components/Home'));
 
 /*let middlewares;
 if (process.env.NODE_ENV !== 'production') {
@@ -29,8 +29,8 @@ class App extends Component {
           <React.Fragment>
             <CssBaseline />
             <Switch>
+              <Route path="/:subFolder" component={AsyncHome} />
               <Route path="/" component={AsyncHome} />
-              <Route path="/:id" component={AsyncHome} />
             </Switch>
           </React.Fragment>
         </BrowserRouter>
