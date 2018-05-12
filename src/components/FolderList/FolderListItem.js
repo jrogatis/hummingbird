@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import { ListItem, ListItemText } from 'material-ui/List';
@@ -6,13 +6,7 @@ import { Divider, Grid } from 'material-ui';
 import Avatar from 'material-ui/Avatar';
 import FolderIcon from '@material-ui/icons/Folder';
 import ReactPlaceholder from 'react-placeholder';
-import {
-  TextBlock,
-  MediaBlock,
-  TextRow,
-  RectShape,
-  RoundShape,
-} from 'react-placeholder/lib/placeholders';
+import { TextBlock, RoundShape } from 'react-placeholder/lib/placeholders';
 import 'react-placeholder/lib/reactPlaceholder.css';
 
 const styles = theme => ({
