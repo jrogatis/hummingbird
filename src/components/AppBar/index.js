@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import { AppBar, Typography, Grid } from 'material-ui';
+import { Menu } from 'mdi-material-ui';
+import windowSize from 'react-window-size';
 
 import AppRightBar from './AppRightBar';
 
@@ -21,17 +23,25 @@ const styles = theme => ({
   title: {
     fontSize: 20,
   },
+  menu: {
+    color: 'black',
+  },
 });
 
 const AppBarCustom = props => {
-  const { classes, title } = props;
+  const { classes, title, windowWidth, cbOpenDrawer } = props;
   return (
     <AppBar position="static" className={classes.appBar}>
       <Grid container direction="row" wrap="nowrap" jusitfy="center" alignItems="center">
         <Grid item xs>
-          <Typography noWrap className={classes.title}>
-            {title.hasOwnProperty('subFolder') ? title.subFolder : 'Home'}
-          </Typography>
+          <Grid container direction="column" wrap="nowrap" jusitfy="center" alignItems="flex-start">
+            {windowWidth < 750 ? (
+              <Menu className={classes.menu} onClick={() => cbOpenDrawer()} />
+            ) : null}
+            <Typography noWrap className={classes.title}>
+              {title.hasOwnProperty('subFolder') ? title.subFolder : 'Home'}
+            </Typography>
+          </Grid>
         </Grid>
         <Grid item xs>
           <AppRightBar />
@@ -45,4 +55,4 @@ AppBarCustom.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(AppBarCustom);
+export default windowSize(withStyles(styles)(AppBarCustom));

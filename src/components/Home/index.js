@@ -61,16 +61,43 @@ const RenderGridButton = props => {
   );
 };
 class FrontPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      drawerOpen: false,
+    };
+  }
+
+  handleOpenDrawer() {
+    const { drawerOpen } = this.state;
+    this.setState({ drawerOpen: !drawerOpen });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { windowWidth } = nextProps;
+    if (windowWidth > 750) {
+      this.setState({ drawerOpen: true });
+    }
+    if (windowWidth < 750 && this.props.windowWidth >= 750) {
+      this.setState({ drawerOpen: false });
+    }
+  }
+
   render() {
     const {
       classes,
       windowWidth,
       match: { params },
     } = this.props;
+    const { drawerOpen } = this.state;
     return (
       <Paper className={classes.root} elevation={0}>
-        <LeftDrawer superProps={this.props} />
-        <AppBarCustom title={params} />
+        <LeftDrawer
+          superProps={this.props}
+          drawerOpen={drawerOpen}
+          cbOpenDrawer={() => this.handleOpenDrawer()}
+        />
+        <AppBarCustom title={params} cbOpenDrawer={() => this.handleOpenDrawer()} />
         <Grid
           container
           direction="row"

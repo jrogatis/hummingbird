@@ -11,6 +11,10 @@ const styles = theme => ({
     border: '2px solid #dbdbdb',
     borderRadius: '25px',
     height: 30,
+    maxWidth: 100,
+    [theme.breakpoints.up('md')]: {
+      minWidth: 200,
+    },
   },
   icon: {
     color: 'black',
@@ -27,9 +31,9 @@ const styles = theme => ({
     marginLeft: 8,
   },
 });
+
 const AppRightBar = props => {
   const { classes } = props;
-
   return (
     <Grid
       container

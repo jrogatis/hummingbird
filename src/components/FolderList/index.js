@@ -13,35 +13,66 @@ const styles = theme => ({
   },
 });
 
+const nextPg = props => {
+  return props.page.hasOwnProperty('subFolder') ? props.page.subFolder : 'Home';
+};
+
 class FolderList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      curPage: props.page.hasOwnProperty('subFolder') ? props.page.subFolder : 'Home',
+      curPage: nextPg(props),
+      ready: false,
+      quantItems: _.random(1, 5),
     };
+    this.timer = '';
+  }
+
+  updatePlaceHolder() {
+    this.timer = setTimeout(
+      function() {
+        this.setState({ ready: true });
+      }.bind(this),
+      3000,
+    );
+  }
+  componentWillMount() {
+    this.updatePlaceHolder();
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timer);
   }
 
   componentWillReceiveProps(nextProps) {
     const { curPage } = this.state;
-    if (this.props.page.hasOwnProperty('subFolder') && curPage !== nextProps.page.subFolder) {
-      this.setState({ curPage: nextProps.page.subFolder });
+    if (curPage !== nextPg(nextProps)) {
+      clearTimeout(this.timer);
+      this.setState({
+        curPage: nextProps.page.subFolder,
+        ready: false,
+        quantItems: _.random(1, 5),
+      });
+      this.updatePlaceHolder();
     }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    const { curPage } = this.state;
-    return curPage !== nextProps.page.subFolder;
+    const { curPage } = nextState;
+    const newPage = curPage !== nextPg(nextProps);
+    const newReady = nextState.ready !== this.state.ready;
+    return newPage || newReady;
   }
 
   render() {
     const { classes } = this.props;
-    const randomItems = _.random(1, 5);
+    const { ready, quantItems } = this.state;
     return (
       <Grid container direction="column" className={classes.root}>
         <Grid item xs={12}>
           <List>
-            {[...Array(randomItems).keys()].map(item => (
-              <FolderListItem item={item} key={`list-${item}`} />
+            {[...Array(quantItems).keys()].map(item => (
+              <FolderListItem item={item} key={`list-${item}`} ready={ready} />
             ))}
           </List>
         </Grid>

@@ -31,84 +31,53 @@ const styles = theme => ({
   },
 });
 
-class FolderListItem extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { ready: false };
-    this.timer = '';
-  }
+const renderPlaceHolder = props => {
+  const { classes } = props;
+  return (
+    <Grid
+      container
+      className={classes.placeHolderContainer}
+      direction="row"
+      wrap="nowrap"
+      justify="flex-end"
+      alignItems="center"
+    >
+      <RoundShape color={'lightGrey'} style={{ width: 30, height: 30, margin: 12 }} />
+      <TextBlock rows={2} color={'lightGrey'} />
+    </Grid>
+  );
+};
 
-  componentWillMount() {
-    this.timer = setTimeout(
-      function() {
-        this.setState({ ready: true });
-      }.bind(this),
-      3000,
-    );
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({ ready: false });
-    this.timer = setTimeout(
-      function() {
-        this.setState({ ready: true });
-      }.bind(this),
-      3000,
-    );
-  }
-
-  componentWillUnmount() {
-    clearTimeout(this.timer);
-  }
-
-  renderPlaceHolder() {
-    const { classes } = this.props;
-    return (
-      <Grid
-        container
-        className={classes.placeHolderContainer}
-        direction="row"
-        wrap="nowrap"
-        justify="flex-end"
-        alignItems="center"
-      >
-        <RoundShape color={'lightGrey'} style={{ width: 30, height: 30, margin: 12 }} />
-        <TextBlock rows={2} color={'lightGrey'} />
+const FolderListItem = props => {
+  const { classes, item, ready } = props;
+  return (
+    <Grid
+      container
+      direction="column"
+      alignItems="stretch"
+      justify="flex-start"
+      key={`item-${item}`}
+      className={classes.root}
+    >
+      <Grid item xs={12}>
+        <ReactPlaceholder
+          customPlaceholder={renderPlaceHolder(props)}
+          showLoadingAnimation
+          rows={2}
+          ready={ready}
+        >
+          <ListItem>
+            <Avatar className={classes.avatar}>
+              <FolderIcon className={classes.icon} />
+            </Avatar>
+            <ListItemText primary="Vacation" secondary="July 20, 2014" />
+          </ListItem>
+        </ReactPlaceholder>
+        <Divider />
       </Grid>
-    );
-  }
-
-  render() {
-    const { classes, item } = this.props;
-    return (
-      <Grid
-        container
-        direction="column"
-        alignItems="stretch"
-        justify="flex-start"
-        key={`item-${item}`}
-        className={classes.root}
-      >
-        <Grid item xs={12}>
-          <ReactPlaceholder
-            customPlaceholder={this.renderPlaceHolder()}
-            showLoadingAnimation
-            rows={2}
-            ready={this.state.ready}
-          >
-            <ListItem>
-              <Avatar className={classes.avatar}>
-                <FolderIcon className={classes.icon} />
-              </Avatar>
-              <ListItemText primary="Vacation" secondary="July 20, 2014" />
-            </ListItem>
-          </ReactPlaceholder>
-          <Divider />
-        </Grid>
-      </Grid>
-    );
-  }
-}
+    </Grid>
+  );
+};
 
 FolderListItem.propTypes = {
   classes: PropTypes.object.isRequired,

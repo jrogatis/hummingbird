@@ -16,13 +16,17 @@ const styles = theme => ({
     },
   },
 });
+
 const MenuItems = props => {
   const {
     classes,
+    cbOpenDrawer,
     superProps: { history },
   } = props;
+
   const handleClick = page => {
     history.push(page);
+    cbOpenDrawer();
   };
 
   const isCurPage = page => {

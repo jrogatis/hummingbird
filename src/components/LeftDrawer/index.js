@@ -21,24 +21,27 @@ const styles = theme => ({
 });
 
 const LeftDrawer = props => {
-  const { classes, windowWidth, superProps } = props;
+  const { classes, windowWidth, superProps, drawerOpen, cbOpenDrawer } = props;
 
   return (
-    <Drawer
-      variant="persistent"
-      classes={{
-        paper: classes.drawerPaper,
-      }}
-      anchor="left"
-      open={windowWidth >= 750}
-    >
-      <div className={classes.toolbar} style={{ padding: 15 }}>
-        <Dropbox className={classes.icon} />
-      </div>
-      <MenuList role="menu">
-        <MenuItems superProps={superProps} />
-      </MenuList>
-    </Drawer>
+    <div onKeyDown={() => cbOpenDrawer()}>
+      <Drawer
+        variant={windowWidth >= 750 ? 'persistent' : 'temporary'}
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+        anchor="left"
+        open={drawerOpen}
+        onClose={() => cbOpenDrawer()}
+      >
+        <div className={classes.toolbar} style={{ padding: 15 }}>
+          <Dropbox className={classes.icon} />
+        </div>
+        <MenuList role="menu">
+          <MenuItems superProps={superProps} cbOpenDrawer={() => cbOpenDrawer()} />
+        </MenuList>
+      </Drawer>
+    </div>
   );
 };
 
