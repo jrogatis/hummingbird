@@ -55,11 +55,7 @@ class FrontPage extends Component {
   }
 
   render() {
-    const {
-      classes,
-      windowWidth,
-      match: { params },
-    } = this.props;
+    const { classes, windowWidth } = this.props;
     const { drawerOpen } = this.state;
     return (
       <Paper className={classes.root} elevation={0}>
@@ -68,7 +64,7 @@ class FrontPage extends Component {
           drawerOpen={drawerOpen}
           cbOpenDrawer={() => this.handleOpenDrawer()}
         />
-        <AppBarCustom title={params} cbOpenDrawer={() => this.handleOpenDrawer()} />
+        <AppBarCustom cbOpenDrawer={() => this.handleOpenDrawer()} />
         <Grid
           container
           direction="row"

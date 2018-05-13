@@ -5,11 +5,19 @@ import { AppBar, Typography, Grid } from 'material-ui';
 import { Menu } from 'mdi-material-ui';
 import windowSize from 'react-window-size';
 import styles from './indexStyles';
+import { connect } from 'react-redux';
 
 import AppRightBar from './AppRightBar';
 
 const AppBarCustom = props => {
-  const { classes, title, windowWidth, cbOpenDrawer } = props;
+  const {
+    classes,
+    windowWidth,
+    cbOpenDrawer,
+    router: {
+      location: { pathname },
+    },
+  } = props;
   return (
     <AppBar position="static" className={classes.appBar}>
       <Grid container direction="row" wrap="nowrap" jusitfy="center" alignItems="center">
@@ -19,7 +27,7 @@ const AppBarCustom = props => {
               <Menu className={classes.menu} onClick={() => cbOpenDrawer()} />
             ) : null}
             <Typography noWrap className={classes.title}>
-              {title.hasOwnProperty('subFolder') ? title.subFolder : 'Home'}
+              {pathname !== '/' ? pathname.substr(1) : 'Home'}
             </Typography>
           </Grid>
         </Grid>
@@ -34,5 +42,8 @@ const AppBarCustom = props => {
 AppBarCustom.propTypes = {
   classes: PropTypes.object.isRequired,
 };
+const mapStateToProps = ({ router }) => ({
+  router,
+});
 
-export default windowSize(withStyles(styles)(AppBarCustom));
+export default connect(mapStateToProps)(windowSize(withStyles(styles)(AppBarCustom)));

@@ -23,8 +23,8 @@ const render = AppComponent => {
 render(App);
 
 if (module.hot && process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
-  module.hot.accept('./containers/App', () => {
-    render(require('./containers/App').default);
+  module.hot.accept('./AppRoot', () => {
+    render(require('./AppRoot').default);
   });
 }
 

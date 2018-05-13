@@ -4,33 +4,7 @@ import { withStyles } from 'material-ui/styles';
 import { Grid, TextField, InputAdornment, Avatar } from 'material-ui';
 import { Magnify, BellOutline } from 'mdi-material-ui';
 
-const styles = theme => ({
-  container: {},
-  input: {
-    margin: theme.spacing.unit,
-    border: '2px solid #dbdbdb',
-    borderRadius: '25px',
-    height: 30,
-    maxWidth: 100,
-    [theme.breakpoints.up('md')]: {
-      minWidth: 200,
-    },
-  },
-  icon: {
-    color: 'black',
-    margin: 10,
-  },
-  avatar: {
-    fontSize: 14,
-    width: 34,
-    height: 34,
-    margin: 10,
-  },
-  magnify: {
-    fontSize: 18,
-    marginLeft: 8,
-  },
-});
+import styles from './appBarRightStyles';
 
 const AppRightBar = props => {
   const { classes } = props;
@@ -49,12 +23,12 @@ const AppRightBar = props => {
           disableUnderline: true,
           startAdornment: (
             <InputAdornment position="start">
-              <Magnify className={classes.magnify} />{' '}
+              <Magnify className={classes.magnify} />
             </InputAdornment>
           ),
         }}
         className={classes.input}
-      />{' '}
+      />
       <BellOutline className={classes.icon} /> <Avatar className={classes.avatar}> H </Avatar> / >
     </Grid>
   );

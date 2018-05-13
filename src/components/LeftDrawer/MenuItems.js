@@ -2,6 +2,9 @@ import React from 'react';
 import { Grid } from 'material-ui';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
+import { connect } from 'react-redux';
+import { store } from '../../store';
+import { push } from 'react-router-redux';
 
 const styles = theme => ({
   button: {
@@ -21,20 +24,21 @@ const MenuItems = props => {
   const {
     classes,
     cbOpenDrawer,
-    superProps: { history },
+    router: {
+      location: { pathname },
+    },
   } = props;
 
   const handleClick = page => {
-    history.push(page);
+    store.dispatch(push(page));
     cbOpenDrawer();
   };
 
   const isCurPage = page => {
-    const { params } = props.superProps.match;
-    if (!params.hasOwnProperty('subFolder') && page === 'Home') {
+    if (pathname === '/' && page === 'Home') {
       return '#0070E0';
     }
-    return params.subFolder === page ? '#0070E0' : '#778594';
+    return pathname.substr(1) === page ? '#0070E0' : '#778594';
   };
 
   return (
@@ -82,4 +86,8 @@ MenuItems.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(MenuItems);
+const mapStateToProps = ({ router }) => ({
+  router,
+});
+
+export default connect(mapStateToProps)(withStyles(styles)(MenuItems));
