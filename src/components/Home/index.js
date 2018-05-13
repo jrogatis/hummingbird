@@ -6,45 +6,16 @@ import AppBarCustom from '../AppBar';
 import LeftDrawer from '../LeftDrawer';
 import FolderList from '../FolderList';
 import windowSize from 'react-window-size';
+import styles from './indexStyles';
 
-const styles = theme => ({
-  root: {
-    margin: 0,
-    padding: 0,
-  },
-  container: {
-    width: `calc(100% - 250px)`,
-    marginLeft: '250px',
-    padding: '2% 2% 0 0',
-    [theme.breakpoints.down('750')]: {
-      width: `100%`,
-      marginLeft: 0,
-    },
-  },
-  buttonContainer: {
-    minWidth: 200,
-    maxHeight: 32,
-  },
-  button: {
-    textTransform: 'none',
-    width: 200,
-    maxHeight: 32,
-    backgroundColor: '#0070e0',
-    label: {
-      whiteSpace: 'nowrap',
-    },
-  },
-});
-
-const RenderFolderList = props => {
-  const { params } = props;
+const RenderFolderList = () => {
   return (
     <Grid container direction="column" wrap="nowrap" alignItems="stretch" justify="center">
       <Grid item xs>
         <Typography>Starred</Typography>
       </Grid>
       <Grid item xs>
-        <FolderList page={params} />
+        <FolderList />
       </Grid>
     </Grid>
   );
@@ -73,7 +44,7 @@ class FrontPage extends Component {
     this.setState({ drawerOpen: !drawerOpen });
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { windowWidth } = nextProps;
     if (windowWidth > 750) {
       this.setState({ drawerOpen: true });
@@ -108,7 +79,7 @@ class FrontPage extends Component {
           spacing={16}
         >
           <Grid item xs={12} md={windowWidth >= 1050 ? 9 : 12}>
-            {RenderFolderList({ params })}
+            {RenderFolderList()}
           </Grid>
           {windowWidth > 1050 ? RenderGridButton(this.props) : null}
         </Grid>

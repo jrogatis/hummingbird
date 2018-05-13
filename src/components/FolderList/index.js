@@ -4,6 +4,7 @@ import { withStyles } from 'material-ui/styles';
 import { List, Grid } from 'material-ui';
 import FolderListItem from './FolderListItem';
 import _ from 'lodash';
+import { connect } from 'react-redux';
 
 const styles = theme => ({
   root: {
@@ -14,7 +15,12 @@ const styles = theme => ({
 });
 
 const nextPg = props => {
-  return props.page.hasOwnProperty('subFolder') ? props.page.subFolder : 'Home';
+  const {
+    router: {
+      location: { pathname },
+    },
+  } = props;
+  return pathname !== '/' ? pathname : 'Home';
 };
 
 class FolderList extends Component {
@@ -36,7 +42,8 @@ class FolderList extends Component {
       3000,
     );
   }
-  componentWillMount() {
+
+  componentDidMount() {
     this.updatePlaceHolder();
   }
 
@@ -44,12 +51,12 @@ class FolderList extends Component {
     clearTimeout(this.timer);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { curPage } = this.state;
     if (curPage !== nextPg(nextProps)) {
       clearTimeout(this.timer);
       this.setState({
-        curPage: nextProps.page.subFolder,
+        curPage: nextPg(nextProps),
         ready: false,
         quantItems: _.random(1, 5),
       });
@@ -58,7 +65,7 @@ class FolderList extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    const { curPage } = nextState;
+    const { curPage } = this.props;
     const newPage = curPage !== nextPg(nextProps);
     const newReady = nextState.ready !== this.state.ready;
     return newPage || newReady;
@@ -82,6 +89,11 @@ class FolderList extends Component {
 }
 FolderList.propTypes = {
   classes: PropTypes.object.isRequired,
+  router: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(FolderList);
+const mapStateToProps = ({ router }) => ({
+  router,
+});
+
+export default connect(mapStateToProps)(withStyles(styles)(FolderList));

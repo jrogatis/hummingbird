@@ -49,14 +49,13 @@ const AppRightBar = props => {
           disableUnderline: true,
           startAdornment: (
             <InputAdornment position="start">
-              <Magnify className={classes.magnify} />
+              <Magnify className={classes.magnify} />{' '}
             </InputAdornment>
           ),
         }}
         className={classes.input}
-      />
-      <BellOutline className={classes.icon} />
-      <Avatar className={classes.avatar}>H</Avatar> />
+      />{' '}
+      <BellOutline className={classes.icon} /> <Avatar className={classes.avatar}> H </Avatar> / >
     </Grid>
   );
 };
