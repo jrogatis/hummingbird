@@ -10,7 +10,11 @@ const delay = data => {
   });
 };
 
-const data = () => [...Array(_.random(1, 5)).keys()].map(item => faker.system.fileName());
+const data = () =>
+  [...Array(_.random(1, 5)).keys()].map(item => ({
+    name: faker.system.fileName(),
+    date: faker.date.past(),
+  }));
 
 export const isFetching = payload => {
   return {

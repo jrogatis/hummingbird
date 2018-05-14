@@ -65,7 +65,7 @@ class FolderList extends Component {
     const {
       classes,
       filesList: {
-        FetchListFiles: { isLoading, data },
+        FetchListFiles: { data },
       },
     } = this.props;
     const { ready } = this.state;
@@ -74,9 +74,7 @@ class FolderList extends Component {
         <Grid item xs={12}>
           <List>
             {ready ? (
-              data.map(item => (
-                <FolderListItem item={item} key={`list-${item}`} ready={!isLoading} />
-              ))
+              data.map(item => <FolderListItem item={item} key={`list-${item.name}`} />)
             ) : (
               <FolderListPlaceHolder />
             )}
