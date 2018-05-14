@@ -9,7 +9,7 @@ const history = createHistory();
 const routeMiddleware = routerMiddleware(history);
 
 const combReducers = combineReducers({
-  ...reducers,
+  filesList: reducers,
   router: routerReducer,
 });
 

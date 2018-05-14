@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import reducerData from './reducerData';
+import FetchListFiles from './reducerData';
 
 const rootReducer = combineReducers({
-  data: reducerData,
+  FetchListFiles,
 });
 
 export default rootReducer;

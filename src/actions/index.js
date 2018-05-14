@@ -1,32 +1,28 @@
 import _ from 'lodash';
 import faker from 'faker';
 
-export const FULFILL_DATA = 'FULFILL_DATA';
 export const REQUEST_DATA = 'REQUEST_DATA';
+export const FETCH_REQUEST = 'FETCH_REQUEST';
 
 const delay = data => {
   return new Promise((resolve, reject) => {
-    setTimeout(resolve(data), 3000);
+    setTimeout(() => resolve(data), 3000);
   });
 };
 
-const data = () => {
-  return [...Array(_.random(1, 5)).keys()].map(item => {
-    return faker.system.fileName();
-  });
-};
+const data = () => [...Array(_.random(1, 5)).keys()].map(item => faker.system.fileName());
 
-export const requestData = async payload => {
-  await delay();
+export const isFetching = payload => {
   return {
-    type: REQUEST_DATA,
-    payload: delay(data),
+    type: FETCH_REQUEST,
+    payload: { isLoading: true },
   };
 };
 
-export const fulfillData = payload => {
+export const requestData = async payload => {
+  const result = await delay(data());
   return {
-    type: FULFILL_DATA,
-    payload: payload,
+    type: REQUEST_DATA,
+    payload: { data: result, isLoading: false },
   };
 };

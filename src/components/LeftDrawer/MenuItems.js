@@ -5,6 +5,7 @@ import { withStyles } from 'material-ui/styles';
 import { connect } from 'react-redux';
 import { store } from '../../store';
 import { push } from 'react-router-redux';
+import { requestData, isFetching } from '../../actions';
 
 const styles = theme => ({
   button: {
@@ -31,6 +32,8 @@ const MenuItems = props => {
 
   const handleClick = page => {
     store.dispatch(push(page));
+    props.isFetching();
+    props.requestData();
     cbOpenDrawer();
   };
 
@@ -90,4 +93,4 @@ const mapStateToProps = ({ router }) => ({
   router,
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(MenuItems));
+export default connect(mapStateToProps, { requestData, isFetching })(withStyles(styles)(MenuItems));
