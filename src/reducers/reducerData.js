@@ -1,7 +1,6 @@
 import { REQUEST_DATA, FETCH_REQUEST } from '../actions';
 
 export default (state = [], action) => {
-  console.log('action', action);
   const { type, payload } = action;
   switch (type) {
     case REQUEST_DATA:

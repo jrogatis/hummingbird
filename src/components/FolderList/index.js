@@ -5,6 +5,8 @@ import { List, Grid } from 'material-ui';
 import FolderListItem from './FolderListItem';
 import _ from 'lodash';
 import { connect } from 'react-redux';
+import { requestData, isFetching } from '../../actions';
+import FolderListPlaceHolder from './FolderListPlaceHolder';
 
 const styles = theme => ({
   root: {
@@ -34,33 +36,21 @@ class FolderList extends Component {
     this.timer = '';
   }
 
-  updatePlaceHolder() {
-    this.timer = setTimeout(
-      function() {
-        this.setState({ ready: true });
-      }.bind(this),
-      3000,
-    );
-  }
-
   componentDidMount() {
-    this.updatePlaceHolder();
-  }
-
-  componentWillUnmount() {
-    clearTimeout(this.timer);
+    const { requestData, isFetching } = this.props;
+    isFetching();
+    requestData();
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
+    const {
+      filesList: {
+        FetchListFiles: { isLoading, data },
+      },
+    } = nextProps;
     const { curPage } = this.state;
-    if (curPage !== nextPg(nextProps)) {
-      clearTimeout(this.timer);
-      this.setState({
-        curPage: nextPg(nextProps),
-        ready: false,
-        quantItems: _.random(1, 5),
-      });
-      this.updatePlaceHolder();
+    if (curPage !== nextPg(nextProps) || this.props.ready !== !isLoading) {
+      this.setState({ ready: !isLoading, data });
     }
   }
 
@@ -72,15 +62,24 @@ class FolderList extends Component {
   }
 
   render() {
-    const { classes } = this.props;
-    const { ready, quantItems } = this.state;
+    const {
+      classes,
+      filesList: {
+        FetchListFiles: { isLoading, data },
+      },
+    } = this.props;
+    const { ready } = this.state;
     return (
       <Grid container direction="column" className={classes.root}>
         <Grid item xs={12}>
           <List>
-            {[...Array(quantItems).keys()].map(item => (
-              <FolderListItem item={item} key={`list-${item}`} ready={ready} />
-            ))}
+            {ready ? (
+              data.map(item => (
+                <FolderListItem item={item} key={`list-${item}`} ready={!isLoading} />
+              ))
+            ) : (
+              <FolderListPlaceHolder />
+            )}
           </List>
         </Grid>
       </Grid>
@@ -92,8 +91,11 @@ FolderList.propTypes = {
   router: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = ({ router }) => ({
+const mapStateToProps = ({ router, filesList }) => ({
   router,
+  filesList,
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(FolderList));
+export default connect(mapStateToProps, { requestData, isFetching })(
+  withStyles(styles)(FolderList),
+);
