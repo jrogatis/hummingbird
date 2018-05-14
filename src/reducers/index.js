@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
+import FetchListFiles from './reducerData';
 
 const rootReducer = combineReducers({
-  root: 'initial',
+  FetchListFiles,
 });
 
 export default rootReducer;
